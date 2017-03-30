@@ -51,7 +51,7 @@ public class SiteUser implements Serializable {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "type")
-    private UserType type;
+    private UserType type;   
 
     public Long getId() {
         return id;
