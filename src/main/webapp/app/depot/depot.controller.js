@@ -14,7 +14,6 @@
         vm.fileToUpload = null;
         vm.fileDescription= "...";
         
-        vm.uploadFileToUrl= function(files[0]);
        
         vm.uploadFiles = function(files) {
         	if (!files || files.length === 0) {
