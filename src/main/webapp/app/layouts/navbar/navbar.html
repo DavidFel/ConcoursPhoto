@@ -23,7 +23,17 @@
                 </li>
                 
                 
-				<li ui-sref-active="active">
+                	<li ui-sref-active="active" ng-switch-when="true">
+                    <a ui-sref="depot" ng-click="vm.depot()">
+                        <span class="glyphicon glyphicon-picture"></span>
+                        <span>Dépôt</span>
+                    </a>
+                </li>
+                
+                
+                
+                
+				<li ui-sref-active="active" ng-switch-when="true">
                     <a ui-sref="gallery" ng-click="vm.gallery()">
                         <span class="glyphicon glyphicon-picture"></span>
                         <span>Galleries</span>
