@@ -15,8 +15,9 @@ public class ContentRestController {
 	private static Logger log = LoggerFactory.getLogger(ContentRestController.class);
 	
 	@RequestMapping(
-			method=RequestMethod.POST, 
-			name="/images"
+			value="/images",
+			method=RequestMethod.GET 
+			//name="/images"
 			//?? consumes="multipart/form-data"
 			)
 	public void uploadImages(
