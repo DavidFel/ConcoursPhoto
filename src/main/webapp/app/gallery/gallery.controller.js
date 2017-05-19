@@ -5,26 +5,34 @@
         .module('concoursphotoApp')
         .controller('GalleryController', GalleryController);
 
-    GalleryController.$inject = ['$scope', 'Principal', 'LoginService', 'Photo', '$state'];
+    GalleryController.$inject = ['$scope', 'Principal', 'LoginService', 'Photo', '$state', 'UserPhotoVote', 'UserPhotoComment'];
 
-    function GalleryController ($scope, Principal, LoginService, Photo, $state) {   
+    function GalleryController ($scope, Principal, LoginService, Photo, $state, UserPhotoVote,UserPhotoComment) {   
         var vm = this;
 		vm.myFile=null;
         vm.account = null;
+        vm.userPhotoVote = {};
+        vm.UserPhotoComment={};
         vm.isAuthenticated = null;
         vm.login = LoginService.open;
         vm.register = register;
         vm.MsgComment= "...";
 
         vm.vote= function Vote(ValueVote,PhotoID,UserID) {
-			console.log ({ValueVote}) ;
+        	vm.userPhotoVote.stars = ValueVote;
+        	vm.userPhotoVote.siteUser = {id :1};
+        	vm.userPhotoVote.photo = {id: PhotoID};
+			console.log ({ValueVote});
 			console.log ({PhotoID}) ;
 			console.log ({UserID}) ;
+			saveVote();
         };
          vm.ValiderComment=function ValiderComment(text,PhotoID,UserID){
 			console.log ({text}) ;
 			console.log ({PhotoID}) ;
 			console.log ({UserID}) ;
+			
+			saveComment();
         };
 
         $scope.$on('authenticationSuccess', function() {
@@ -46,6 +54,16 @@
                 vm.searchQuery = null;
         	});
         };
+        
+        function saveVote () {
+        	console.log ("Vote en cours de constructions");
+            //UserPhotoVote.save(vm.userPhotoVote);
+        }
+        
+        function saveComment () {
+    		console.log ("Comment en cours de constructions");
+            //UserPhotoComment.save(vm.UserPhotoComment, null, null);
+        }
         
         function register () {
             $state.go('register');
