@@ -6,7 +6,7 @@
     				<div class="col-md-4">
     					 <div class="well">
 				        	<b><FONT size="5"> {{photo.title}}</FONT></b>
-				             <div class="well"> <img class="picture" height="300" width="250" src="{{photo.uri}}" alt="Photo"/> </div>
+				             <div class="well"> <img class="picture" height="300" width="250" ng-src="data:image/JPEG;base64,{{photo.image}}" alt="Photo"/> </div>
 				    			<p>{{photo.description}}</p>
 				             	<p> Notez la photo :
 				             		<span ng-click="vm.vote('1',photo.id,vm.account.id)" title="1 étoile">☆</span>
