@@ -1,11 +1,12 @@
 package fr.iut.web.rest;
 
+import java.io.File;
 import java.time.LocalDate;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
+//import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -46,13 +47,16 @@ public byte[] data;
 		Photo photo = new Photo();
 		photo.setDateCreate(LocalDate.now());
 		photo.setTitle(file.getName());
-		photo.setUri("fee");
-		photo.setFormat("fefe");
+		photo.setUri("content/images/" + file.getOriginalFilename());
+		photo.setFormat(file.getContentType());
 		photo.setSize((int) file.getSize());
 		log.info("uploading file '" + file.getOriginalFilename() + "' ");
 		try {
+			File destinationFichier = new File(System.getProperty("user.dir")+"/src/main/webapp/content/images/"+file.getOriginalFilename());
 			photo.setImage(file.getBytes());
 			photoRepository.save(photo);
+			log.info("Dir to save: "+destinationFichier);
+			file.transferTo(destinationFichier);
 		} catch (Exception ex) {
 			log.error("Failed to upload", ex);
 		}
