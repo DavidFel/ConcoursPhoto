@@ -19,9 +19,6 @@
         vm.MsgComment= "...";
 
         vm.vote= function Vote(ValueVote,PhotoID,UserID) {
-        	vm.userPhotoVote.stars = ValueVote;
-        	vm.userPhotoVote.siteUser = {id :1};
-        	vm.userPhotoVote.photo = {id: PhotoID};
 			console.log ({ValueVote});
 			console.log ({PhotoID}) ;
 			console.log ({UserID}) ;
@@ -31,7 +28,6 @@
 			console.log ({text}) ;
 			console.log ({PhotoID}) ;
 			console.log ({UserID}) ;
-			
 			saveComment();
         };
 
@@ -57,12 +53,10 @@
         
         function saveVote () {
         	console.log ("Vote en cours de constructions");
-            //UserPhotoVote.save(vm.userPhotoVote);
         }
         
         function saveComment () {
     		console.log ("Comment en cours de constructions");
-            //UserPhotoComment.save(vm.UserPhotoComment, null, null);
         }
         
         function register () {

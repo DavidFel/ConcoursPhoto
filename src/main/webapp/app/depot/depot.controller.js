@@ -19,7 +19,7 @@
         //vm.uploadFileToUrl(files[0],fileToUpload);
 
        
-<<<<<<< HEAD
+
 		vm.DefineFileToUpload= function(files){
 			vm.fileToUpload=files
 		}
@@ -27,13 +27,6 @@
         vm.uploadFiles = function(files,description,titre) {
         	console.log({description});
         	console.log({titre});
-=======
-		vm.DefineFileTOUplod= function(files){
-			vm.fileToUpload=files
-		}
-		
-        vm.uploadFiles = function(files) {
->>>>>>> 00496077aedf2c770995f21a5368787be497d3c1
         	if (!files || files.length === 0) {
             	console.log("nothing to upload");
         	}
@@ -89,19 +82,9 @@
     	    console.log(req);
     	    
     	 }
-       	 	
+       	
        	 	
         };
-       
-        
-        vm.uploadFile=function() {
-        	console.log("ok uploadFile...");
-             
-          
-            console.info('fileToUpload: ', vm.fileToUpload);
-            
-        }
-        
-    
+
     }
 })();
