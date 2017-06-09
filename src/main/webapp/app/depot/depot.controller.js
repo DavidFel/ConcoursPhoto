@@ -12,10 +12,12 @@
         console.log("init depotController");
         
         vm.fileToUpload = null;
-        vm.fileDescription= "...";
+        vm.fileDescription= "......";
+        
 
         //vm.uploadFileToUrl(files[0],fileToUpload);
-      
+
+       
 
         vm.uploadFiles = function(files) {
         	if (!files || files.length === 0) {
