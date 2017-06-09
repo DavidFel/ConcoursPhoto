@@ -45,7 +45,7 @@ public byte[] data;
 		//log.info("uploading file");
 	    //@RequestPart("file") MultipartFile file) {
 		Photo photo = new Photo();
-		photo.setDescription("Test");
+		photo.setDescription("ok");
 		photo.setDateCreate(LocalDate.now());
 		photo.setTitle(file.getName());
 		photo.setUri("content/images/" + file.getOriginalFilename());

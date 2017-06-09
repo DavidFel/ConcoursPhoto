@@ -13,13 +13,19 @@
         
         vm.fileToUpload = null;
         vm.fileDescription= "......";
+        vm.fileTitle="Tapez votre titre";
         
 
         //vm.uploadFileToUrl(files[0],fileToUpload);
 
        
-
-        vm.uploadFiles = function(files) {
+		vm.DefineFileToUpload= function(files){
+			vm.fileToUpload=files
+		}
+		
+        vm.uploadFiles = function(files,description,titre) {
+        	console.log({description});
+        	console.log({titre});
         	if (!files || files.length === 0) {
             	console.log("nothing to upload");
         	}
