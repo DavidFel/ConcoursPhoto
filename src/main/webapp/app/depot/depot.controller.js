@@ -18,7 +18,10 @@
         //vm.uploadFileToUrl(files[0],fileToUpload);
 
        
-
+		vm.DefineFileTOUplod= function(files){
+			vm.fileToUpload=files
+		}
+		
         vm.uploadFiles = function(files) {
         	if (!files || files.length === 0) {
             	console.log("nothing to upload");
