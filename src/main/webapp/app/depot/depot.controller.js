@@ -13,12 +13,10 @@
         
         vm.fileToUpload = null;
         vm.fileDescription= "...";
-        
-<<<<<<< HEAD
+
         //vm.uploadFileToUrl(files[0],fileToUpload);
-=======
-       
->>>>>>> 8950291ecfd9ffe7986ea4901e8a0954836ea184
+      
+
         vm.uploadFiles = function(files) {
         	if (!files || files.length === 0) {
             	console.log("nothing to upload");

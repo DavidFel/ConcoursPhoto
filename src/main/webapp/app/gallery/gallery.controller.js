@@ -18,7 +18,7 @@
         vm.register = register;
         vm.MsgComment= "...";
 
-<<<<<<< HEAD
+
         vm.vote= function(ValueVote,PhotoID,UserID) {
         	vm.userPhotoVote.stars = ValueVote;
             vm.userPhotoVote.siteUser = {id :1};
@@ -32,7 +32,7 @@
 			//console.log ({text}) ;
 			//console.log ({PhotoID}) ;
 			//console.log ({UserID}) ;
-=======
+
         vm.vote= function Vote(ValueVote,PhotoID,UserID) {
         	vm.userPhotoVote.stars = ValueVote;
         	vm.userPhotoVote.siteUser = {id :1};
@@ -48,7 +48,7 @@
 			console.log ({UserID}) ;
 			
 			saveComment();
->>>>>>> 8950291ecfd9ffe7986ea4901e8a0954836ea184
+
         };
 
         $scope.$on('authenticationSuccess', function() {
@@ -73,7 +73,7 @@
         
         function saveVote () {
         	console.log ("Vote en cours de constructions");
-<<<<<<< HEAD
+
         	//UserPhotoVote.save(vm.userPhotoVote);
         	}
 
@@ -82,7 +82,7 @@
         	//UserPhotoComment.save(vm.UserPhotoComment, null, null);
         	}
 
-=======
+
             //UserPhotoVote.save(vm.userPhotoVote);
         }
         
@@ -91,7 +91,7 @@
             //UserPhotoComment.save(vm.UserPhotoComment, null, null);
         }
         
->>>>>>> 8950291ecfd9ffe7986ea4901e8a0954836ea184
+
         function register () {
             $state.go('register');
         }
