@@ -1,4 +1,5 @@
 <div ng-cloak>
+<script type="text/javascript" src="javascript.js"></script>
 	<div ng-switch="vm.isAuthenticated()">
 		<div class="well" ng-switch-when="true">
 			<div class="row">
@@ -6,17 +7,37 @@
     				<div class="col-md-4">
     					 <div class="well">
 				        	<b><FONT size="5"> {{photo.title}}</FONT></b>
-				             <div class="well"> <img class="picture" height="300" width="250" ng-src="{{photo.uri}}" alt="Photo"/> </div>
+				             <div class="well"> 
+					             <div>
+					             		<img  height="300" width="250" ng-src="{{photo.uri}}" alt="Photo"/>
+					             </div> 
+				             </div>
 				    			<p>{{photo.description}}</p>
+
+				    			<div ng-repeat="vote in vm.votes">
+										<div ng-switch="vm.photoAreEquals(photo.id,vote.photo.id)">
+											<div class="well" ng-switch-when="true">
+												<span> {{vote.stars}}</span>
+											</div>
+										</div>
+								</div>
 				    			
-				    			
-				             	<p> Notez la photo :
-				             		<span ng-click="vm.saveVote('1',photo.id,vm.account.id)" title="1 étoile">☆</span>
-				             		<span ng-click="vm.saveVote('2',photo.id,vm.account.id)" title="2 étoiles">☆</span>
-				             		<span ng-click="vm.saveVote('3',photo.id,vm.account.id)" title="3 étoiles">☆</span>
-				             		<span ng-click="vm.saveVote('4',photo.id,vm.account.id)" title="4 étoiles">☆</span>
-							  		<span ng-click="vm.saveVote('5',photo.id,vm.account.id)" title="5 étoiles">☆</span>
-								</p>
+				    			<p>La moyenne des votes : {{vm.calculMoyenne('5')}} </p>			    			
+				    			<div ng-switch="vm.verifVote()">
+				    				<div ng-switch-when="true">
+						             	<p> Notez la photo :
+						             		<span ng-click="vm.saveVote('1',photo.id,vm.account.id)" title="1 étoile">☆</span>
+						             		<span ng-click="vm.saveVote('2',photo.id,vm.account.id)" title="2 étoiles">☆</span>
+						             		<span ng-click="vm.saveVote('3',photo.id,vm.account.id)" title="3 étoiles">☆</span>
+						             		<span ng-click="vm.saveVote('4',photo.id,vm.account.id)" title="4 étoiles">☆</span>
+									  		<span ng-click="vm.saveVote('5',photo.id,vm.account.id)" title="5 étoiles">☆</span>
+										</p>
+									</div>
+									
+				    				<div ng-switch-when="false">
+						             	<p> Vous avez déjà voter</p>
+									</div>
+								</div>
 								
 								<div class="well">
 									<p> Tous les commentaires : </p>
@@ -28,6 +49,7 @@
 											</div>
 										</div>
 								</div>
+								
 	 			    			<p>Laissez un commentaire :<TEXTAREA ng-model="vm.MsgComment"  rows="3" cols="35" name="Comment"></TEXTAREA></p>
 	 			    			
 				    			<INPUT TYPE="submit" ng-click="vm.saveComment(vm.MsgComment,photo.id,vm.account.id)" NAME="SubmitComment" VALUE="Valider">

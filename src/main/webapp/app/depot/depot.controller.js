@@ -35,6 +35,9 @@
        	 	var fd = new FormData();
        	 	//Take the first selected file
        	 	fd.append("file",files[0]);
+       	 	fd.append("description",description);
+       	 	fd.append("titre",titre);
+       	 	
        	    //$http.get('http://localhost:8080/#/depot')
        	 	console.log(files.length);
        	       

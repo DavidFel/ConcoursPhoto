@@ -1,6 +1,7 @@
 package fr.iut.web.rest;
 
 import java.io.File;
+import java.net.URISyntaxException;
 import java.time.LocalDate;
 
 import org.slf4j.Logger;
@@ -39,15 +40,18 @@ public byte[] data;
 			//?? consumes="multipart/form-data"
 			method=RequestMethod.POST,
 			consumes = {"multipart/form-data"})
-			
+
+	
 	public void uploadImages(//@RequestBody ImageData image){
-			@RequestParam("file") MultipartFile file) {
+			@RequestParam("file") MultipartFile file,@RequestParam("description") String description,@RequestParam("titre") String titre) {
 		//log.info("uploading file");
 	    //@RequestPart("file") MultipartFile file) {
 		Photo photo = new Photo();
-		photo.setDescription("ok");
+		//photo.setDescription("ok");
+		photo.setDescription(description);
 		photo.setDateCreate(LocalDate.now());
-		photo.setTitle(file.getName());
+		//photo.setTitle(file.getName());
+		photo.setTitle(titre);
 		photo.setUri("content/images/" + file.getOriginalFilename());
 		photo.setFormat(file.getContentType());
 		photo.setSize((int) file.getSize());
