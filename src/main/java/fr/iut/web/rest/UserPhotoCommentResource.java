@@ -1,21 +1,30 @@
 package fr.iut.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import fr.iut.domain.UserPhotoComment;
 
+import fr.iut.domain.Photo;
+import fr.iut.domain.SiteUser;
+import fr.iut.domain.UserPhotoComment;
+import fr.iut.domain.UserPhotoVote;
+import fr.iut.repository.PhotoRepository;
+import fr.iut.repository.SiteUserRepository;
 import fr.iut.repository.UserPhotoCommentRepository;
 import fr.iut.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+
+
 
 /**
  * REST controller for managing UserPhotoComment.
@@ -33,7 +42,10 @@ public class UserPhotoCommentResource {
     public UserPhotoCommentResource(UserPhotoCommentRepository userPhotoCommentRepository) {
         this.userPhotoCommentRepository = userPhotoCommentRepository;
     }
-
+	@Autowired
+	PhotoRepository photoRepository;
+	@Autowired
+	SiteUserRepository siteUserRepository;
     /**
      * POST  /user-photo-comments : Create a new userPhotoComment.
      *
@@ -116,5 +128,31 @@ public class UserPhotoCommentResource {
         userPhotoCommentRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+    
+
+    @PostMapping("/add-comment")
+    @Timed
+    public ResponseEntity<UserPhotoComment> createUserPhotoCommentAhmed(@RequestParam("ValueComment") String ValueComment,@RequestParam("UserID") Long idUser,@RequestParam("PhotoID") Long PhotoID  ) throws URISyntaxException {
+
+        UserPhotoComment comment = new UserPhotoComment();
+        Photo photo;
+        SiteUser userDuSite;
+
+        
+        photo = photoRepository.findOne(PhotoID);
+        userDuSite = siteUserRepository.findOne(1l);
+
+        comment.setComment(ValueComment);
+        comment.setDate(LocalDate.now());
+        comment.setPhoto(photo);
+        comment.setSiteUser(userDuSite);
+        
+        UserPhotoComment result = userPhotoCommentRepository.save(comment);
+        return ResponseEntity.created(new URI("/api/add-comment/" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+            .body(result);
+    }
+
+    
 
 }

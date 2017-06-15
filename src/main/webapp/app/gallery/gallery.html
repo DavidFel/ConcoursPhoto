@@ -8,15 +8,29 @@
 				        	<b><FONT size="5"> {{photo.title}}</FONT></b>
 				             <div class="well"> <img class="picture" height="300" width="250" ng-src="{{photo.uri}}" alt="Photo"/> </div>
 				    			<p>{{photo.description}}</p>
+				    			
+				    			
 				             	<p> Notez la photo :
-				             		<span ng-click="vm.vote('1',photo.id,vm.account.id)" title="1 étoile">☆</span>
-				             		<span ng-click="vm.vote('2',photo.id,vm.account.id)" title="2 étoiles">☆</span>
-				             		<span ng-click="vm.vote('3',photo.id,vm.account.id)" title="3 étoiles">☆</span>
-				             		<span ng-click="vm.vote('4',photo.id,vm.account.id)" title="4 étoiles">☆</span>
-							  		<span ng-click="vm.vote('5',photo.id,vm.account.id)" title="5 étoiles">☆</span>
+				             		<span ng-click="vm.saveVote('1',photo.id,vm.account.id)" title="1 étoile">☆</span>
+				             		<span ng-click="vm.saveVote('2',photo.id,vm.account.id)" title="2 étoiles">☆</span>
+				             		<span ng-click="vm.saveVote('3',photo.id,vm.account.id)" title="3 étoiles">☆</span>
+				             		<span ng-click="vm.saveVote('4',photo.id,vm.account.id)" title="4 étoiles">☆</span>
+							  		<span ng-click="vm.saveVote('5',photo.id,vm.account.id)" title="5 étoiles">☆</span>
 								</p>
-	 			    			<p>Laissez un commentaire :<TEXTAREA ng-model="vm.MsgComment"  rows="3" cols="35" name="Comment"> </TEXTAREA></p>
-				    			<INPUT TYPE="submit" ng-click="vm.ValiderComment(vm.MsgComment,photo.id,vm.account.id)" NAME="SubmitComment" VALUE="Valider">
+								
+								<div class="well">
+									<p> Tous les commentaires : </p>
+										<div ng-repeat="com in vm.comments">
+											<div ng-switch="vm.photoAreEquals(photo.id,com.photo.id)">
+												<div class="well" ng-switch-when="true">
+													<span> {{com.comment}}</span>
+												</div>
+											</div>
+										</div>
+								</div>
+	 			    			<p>Laissez un commentaire :<TEXTAREA ng-model="vm.MsgComment"  rows="3" cols="35" name="Comment"></TEXTAREA></p>
+	 			    			
+				    			<INPUT TYPE="submit" ng-click="vm.saveComment(vm.MsgComment,photo.id,vm.account.id)" NAME="SubmitComment" VALUE="Valider">
 						 </div> 
 					</div>
 			 	</div>
