@@ -19,6 +19,49 @@
         vm.MsgComment= "Saisir votre commentaire....";
         vm.moyenne =  4;
         
+
+        $scope.$on('authenticationSuccess', function() {
+            getAccount();
+        });
+
+        getAccount();
+        loadAllPhoto();
+        loadAllCommentPhoto();
+        loadAllVotePhoto();
+		
+		//Charger le user
+        function getAccount() {
+            Principal.identity().then(function(account) {
+                vm.account = account;
+                vm.isAuthenticated = Principal.isAuthenticated;
+            });
+        }
+        
+        //Charger toutes les photos
+        function loadAllPhoto() {
+        	Photo.query(function(result) {
+        		vm.photos = result;
+                vm.searchQuery = null;
+        	});
+        };
+        
+        //Charger tous les commentaires
+        function loadAllCommentPhoto() {
+        	UserPhotoComment.query(function(result) {
+        		vm.comments = result;
+                vm.searchQuery = null;
+        	});
+        };
+        
+        //Charger tous les votes
+        function loadAllVotePhoto() {
+        	UserPhotoVote.query(function(result) {
+        		vm.votes = result;
+                vm.searchQuery = null;
+        	});
+        };
+        
+		// Calcul moyenne d'une photo
         vm.calculMoyenne= function(MyData)
         {	
  			/*
@@ -37,8 +80,8 @@
 			*/
 			return vm.moyenne;
         };
-        
-        
+		
+		// Calcul moyenne d'une photo
         vm.calculMoyenneTEST= function(idPhoto)
         {	
  			if (idPhoto ==null ) {
@@ -50,7 +93,7 @@
 			}
 				
         };
-        
+        // Comparer 2 id et return boolean
         vm.photoAreEquals = function(id1,id2)
         {
         	if (id1 == id2)
@@ -61,51 +104,14 @@
         		return false;
     		}
         };
-
+		
+		// Fonction qui va verifier si le user à déja voter
         vm.verifVote = function()
         {
-        	// Fonction qui va verifier si le user à déja voter
 			return true;
         };
-
-        $scope.$on('authenticationSuccess', function() {
-            getAccount();
-        });
-
-        getAccount();
-        loadAllPhoto();
-        loadCommentOnePhoto();
-        loadVoteOnePhoto();
-
-        function getAccount() {
-            Principal.identity().then(function(account) {
-                vm.account = account;
-                vm.isAuthenticated = Principal.isAuthenticated;
-            });
-        }
-        
-        function loadAllPhoto() {
-        	Photo.query(function(result) {
-        		vm.photos = result;
-                vm.searchQuery = null;
-        	});
-        };
-        
-        
-        function loadCommentOnePhoto() {
-        	UserPhotoComment.query(function(result) {
-        		vm.comments = result;
-                vm.searchQuery = null;
-        	});
-        };
-        
-        function loadVoteOnePhoto() {
-        	UserPhotoVote.query(function(result) {
-        		vm.votes = result;
-                vm.searchQuery = null;
-        	});
-        };
-
+		
+		//Fonction pour SVG un vote
         vm.saveVote=function (ValueVote,PhotoID,UserID) {
         
 			if (ValueVote==0 || PhotoID==0 || UserID ==0 ) {
@@ -136,11 +142,11 @@
 				console.log("ERROR", err);
 				});
 			}
-			loadVoteOnePhoto();
+			loadAllVotePhoto();
 		}; // Fin vote
     	    
-         vm.saveComment=function ValiderComment(Text,PhotoID,UserID){
-			
+	  	//Fonction pour SVG un commentaire
+     	vm.saveComment=function (Text,PhotoID,UserID){
 			if (Text=="") {
 				console.log("Pas de commentaire");
 			}
@@ -170,7 +176,7 @@
 				});
 			}
 
-			loadCommentOnePhoto();
+			loadAllCommentPhoto();
 
         };// Fin save comment
         
