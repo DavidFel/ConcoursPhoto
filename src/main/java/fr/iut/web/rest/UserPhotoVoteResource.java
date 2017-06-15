@@ -90,19 +90,12 @@ public class UserPhotoVoteResource {
     @PostMapping("/add-vote")
     @Timed
     public ResponseEntity<UserPhotoVote> createUserPhotoVoteAhmed(@RequestParam("photoID") Long idPhoto,@RequestParam("userID") Long idUser,@RequestParam("valueVote") Integer valueVote  ) throws URISyntaxException {
-        log.debug("idPhoto : " + idPhoto);
-        log.debug("userID : " + idUser);
-        log.debug("valueVote : " + valueVote);
         UserPhotoVote temp = new UserPhotoVote();
         Photo photo;
         SiteUser userDuSite;
 
-        log.debug("Init ok : {}" + valueVote);
-        
         photo = photoRepository.findOne(idPhoto);
         userDuSite = siteUserRepository.findOne(1l);
-        
-        log.debug("Repo ok : {}" + valueVote);
         
         temp.setStars(valueVote);
         temp.setDate(LocalDate.now());

@@ -17,10 +17,11 @@
         vm.login = LoginService.open;
         vm.register = register;
         vm.MsgComment= "Saisir votre commentaire....";
-        vm.moyenne =  5;
+        vm.moyenne =  4;
         
         vm.calculMoyenne= function(MyData)
         {	
+ 			/*
  			if (MyData.length==0)
  			{
  				vm.moyenne =  0;
@@ -33,7 +34,21 @@
 	    		var avg = sum/MyData.length;
 	    		vm.moyenne=avg;
 			}
+			*/
 			return vm.moyenne;
+        };
+        
+        
+        vm.calculMoyenneTEST= function(idPhoto)
+        {	
+ 			if (idPhoto ==null ) {
+				console.log("Erreur");
+			}
+			else
+			{
+				console.log(idPhoto);
+			}
+				
         };
         
         vm.photoAreEquals = function(id1,id2)

@@ -6,13 +6,13 @@
 	    		<div ng-repeat="photo in vm.photos">
     				<div class="col-md-4">
     					 <div class="well">
-				        	<b><FONT size="5"> {{photo.title}}</FONT></b>
+				        	<b><FONT size="5"> Titre : {{photo.title}}</FONT></b>
 				             <div class="well"> 
 					             <div>
-					             		<img  height="300" width="250" ng-src="{{photo.uri}}" alt="Photo"/>
+				             		<img  height="300" width="250" ng-src="{{photo.uri}}" alt="Photo"/>
 					             </div> 
 				             </div>
-				    			<p>{{photo.description}}</p>
+				    			<p>Description : {{photo.description}}</p>
 
 				    			<div ng-repeat="vote in vm.votes">
 										<div ng-switch="vm.photoAreEquals(photo.id,vote.photo.id)">
@@ -21,7 +21,6 @@
 											</div>
 										</div>
 								</div>
-				    			
 				    			<p>La moyenne des votes : {{vm.calculMoyenne('5')}} </p>			    			
 				    			<div ng-switch="vm.verifVote()">
 				    				<div ng-switch-when="true">
@@ -49,10 +48,10 @@
 											</div>
 										</div>
 								</div>
-								
 	 			    			<p>Laissez un commentaire :<TEXTAREA ng-model="vm.MsgComment"  rows="3" cols="35" name="Comment"></TEXTAREA></p>
-	 			    			
 				    			<INPUT TYPE="submit" ng-click="vm.saveComment(vm.MsgComment,photo.id,vm.account.id)" NAME="SubmitComment" VALUE="Valider">
+				    			
+				    			<INPUT TYPE="submit" ng-click="vm.calculMoyenneTEST()" NAME="Test" VALUE="Test">
 						 </div> 
 					</div>
 			 	</div>
