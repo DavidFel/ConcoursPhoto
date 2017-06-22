@@ -46,6 +46,9 @@ public class UserPhotoCommentResource {
 	PhotoRepository photoRepository;
 	@Autowired
 	SiteUserRepository siteUserRepository;
+	
+	
+	
     /**
      * POST  /user-photo-comments : Create a new userPhotoComment.
      *
@@ -100,7 +103,14 @@ public class UserPhotoCommentResource {
         List<UserPhotoComment> userPhotoComments = userPhotoCommentRepository.findAll();
         return userPhotoComments;
     }
-
+    @PostMapping("/user-photo-comment-one-photo")
+    @Timed 
+    public List<UserPhotoComment> getCommentOnePhoto(@RequestParam("id") Long id) {
+    	Photo photo;
+    	photo= photoRepository.findOne(id);
+    	return  userPhotoCommentRepository.findByphoto(photo);
+    }
+    
     /**
      * GET  /user-photo-comments/:id : get the "id" userPhotoComment.
      *
@@ -129,6 +139,7 @@ public class UserPhotoCommentResource {
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
     
+<<<<<<< HEAD
 	@PostMapping("/add-comment")
 	@Timed
 	public ResponseEntity<UserPhotoComment> createUserPhotoCommentAhmed(
@@ -150,5 +161,31 @@ public class UserPhotoCommentResource {
 		return ResponseEntity.created(new URI("/api/add-comment/" + result.getId()))
 				.headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString())).body(result);
 	}
+=======
+
+    @PostMapping("/add-comment")
+    @Timed
+    public ResponseEntity<UserPhotoComment> createUserPhotoCommentAhmed(@RequestParam("ValueComment") String ValueComment,@RequestParam("UserID") Long idUser,@RequestParam("PhotoID") Long PhotoID  ) throws URISyntaxException {
+
+        UserPhotoComment comment = new UserPhotoComment();
+        Photo photo;
+        SiteUser userDuSite;
+
+        
+        photo = photoRepository.findOne(PhotoID);
+        userDuSite = siteUserRepository.findOne(1l);
+
+        comment.setComment(ValueComment);
+        comment.setDate(LocalDate.now());
+        comment.setPhoto(photo);
+        comment.setSiteUser(userDuSite);
+        
+        UserPhotoComment result = userPhotoCommentRepository.save(comment);
+        return ResponseEntity.created(new URI("/api/add-comment/" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+            .body(result);
+    }
+
+>>>>>>> d4ec153457e6ff76ebda0cffdd07824a38e7fbb2
 
 }

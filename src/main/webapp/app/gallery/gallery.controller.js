@@ -11,24 +11,27 @@
         var vm = this;
 		vm.myFile=null;
         vm.account = null;
-        vm.userPhotoVote = {};
-        vm.UserPhotoComment={};
         vm.isAuthenticated = null;
         vm.login = LoginService.open;
         vm.register = register;
         vm.MsgComment= "Saisir votre commentaire....";
-        vm.moyenne =  4;
-        
+        vm.VoteOnePhoto = [];
+        vm.CommentOnePhoto=[];
+        vm.userPhotoVote = {};
+        vm.UserPhotoComment={};
+        vm.nbVote=0;
 
         $scope.$on('authenticationSuccess', function() {
             getAccount();
         });
-
+	
+	init();
+	function init() {
         getAccount();
         loadAllPhoto();
         loadAllCommentPhoto();
         loadAllVotePhoto();
-		
+	       }
 		//Charger le user
         function getAccount() {
             Principal.identity().then(function(account) {
@@ -42,6 +45,10 @@
         	Photo.query(function(result) {
         		vm.photos = result;
                 vm.searchQuery = null;
+				angular.forEach(result,function(value,prop,obj){
+					loadVoteOnePhoto(value.id);
+					loadCommentsOnePhoto(value.id);
+				});
         	});
         };
         
@@ -61,55 +68,97 @@
         	});
         };
         
-		// Calcul moyenne d'une photo
-        vm.calculMoyenne= function(MyData)
-        {	
- 			/*
- 			if (MyData.length==0)
- 			{
- 				vm.moyenne =  0;
- 			}else
- 			{
-	 			var sum = 0; 
-				for(var i = 0; i < MyData.length; i++){
-	    			sum += parseInt(MyData[i]); 
-				}
-	    		var avg = sum/MyData.length;
-	    		vm.moyenne=avg;
+        
+        //Charger tous les votes d'une photo
+        function loadVoteOnePhoto(id) {
+    		if (id==null) {
+				console.log("Photo Id NUll");
 			}
-			*/
-			return vm.moyenne;
+			else{
+				var objectToSend = new FormData();
+				objectToSend.append("id", id);
+				var req = $http.post('/api/user-photo-votes-onePhoto',objectToSend, {
+				
+				transformRequest: angular.identity,
+				headers: {
+				'Content-Type': undefined,
+				}
+				
+				}).success(function(data, status, headers, config) {
+				
+					angular.forEach(data,function(value,prop,obj){
+						vm.VoteOnePhoto.push ({idPhoto : id, valueVote : value.stars});
+					});
+					
+				})
+				.error(function(err) {
+					console.log("ERROR", err);
+				});
+			}	
+        };
+        
+        
+        
+        //Charger tous les commentaire d'une photo
+        function loadCommentsOnePhoto(id) {
+    		if (id==null) {
+				console.log("Photo Id NUll");
+			}
+			else{
+			
+				var objectToSend = new FormData();
+				objectToSend.append("id", id);
+				
+				
+				var req = $http.post('/api/user-photo-comment-one-photo',objectToSend, {
+				
+				transformRequest: angular.identity,
+				headers: {
+				'Content-Type': undefined,
+				}
+				
+				}).success(function(data, status, headers, config) {
+					angular.forEach(data,function(value,prop,obj){
+						vm.CommentOnePhoto.push ({idPhoto : id, valueComment : value.comment});
+					});
+					
+				})
+				.error(function(err) {
+					console.log("ERROR", err);
+				});
+			}		
+        };
+        
+        
+        
+		// Calcul moyenne d'une photo
+        vm.calculMoyenne= function(id)
+        {	
+        	vm.nbVote=0;
+        	var nb=0;
+        	var moyenne=0;
+        	angular.forEach(vm.VoteOnePhoto,function(value,prop,obj){
+	     		if (value.idPhoto== id)
+	     		{
+					nb=nb+1;
+	     			moyenne = ( moyenne * (nb-1) + value.valueVote ) / nb;
+	     		}
+		     		});
+     		vm.nbVote=nb;
+			return moyenne;
         };
 		
-		// Calcul moyenne d'une photo
-        vm.calculMoyenneTEST= function(idPhoto)
-        {	
- 			if (idPhoto ==null ) {
-				console.log("Erreur");
-			}
-			else
-			{
-				console.log(idPhoto);
-			}
-				
-        };
         // Comparer 2 id et return boolean
-        vm.photoAreEquals = function(id1,id2)
-        {
-        	if (id1 == id2)
-        	{
-        		return true;
-        	}else
-        	{
-        		return false;
-    		}
+        vm.photoAreEquals = function(id1,id2){
+			return (id1 == id2);
         };
+		
 		
 		// Fonction qui va verifier si le user à déja voter
-        vm.verifVote = function()
-        {
+        vm.verifVote = function(id){
 			return true;
-        };
+        }; 
+		
 		
 		//Fonction pour SVG un vote
         vm.saveVote=function (ValueVote,PhotoID,UserID) {
@@ -118,14 +167,11 @@
 				console.log("vote non initialise");
 			}
 			else{
-				console.log("saveVote..");
 				var objectToSend = new FormData();
 		
 				objectToSend.append("photoID", PhotoID);
 				objectToSend.append("userID", UserID);
 				objectToSend.append("valueVote", ValueVote);
-				
-				console.log("object envoye :",objectToSend);
 		
 				var req = $http.post('/api/add-vote',objectToSend, {
 
@@ -142,7 +188,7 @@
 				console.log("ERROR", err);
 				});
 			}
-			loadAllVotePhoto();
+			//loadVoteOnePhoto(PhotoID);
 		}; // Fin vote
     	    
 	  	//Fonction pour SVG un commentaire
@@ -151,14 +197,11 @@
 				console.log("Pas de commentaire");
 			}
 			else{
-				console.log("Construction Commentaire..");
 				var objectToSend = new FormData();
 		
 				objectToSend.append("ValueComment", Text);
 				objectToSend.append("UserID", UserID);
 				objectToSend.append("PhotoID", PhotoID);
-				
-				console.log("object envoye :",objectToSend);
 		
 				var req = $http.post('/api/add-comment',objectToSend, {
 
@@ -176,9 +219,10 @@
 				});
 			}
 
-			loadAllCommentPhoto();
-
+			loadCommentsOnePhoto(PhotoID);
+			vm.MsgComment= "Saisir votre commentaire....";
         };// Fin save comment
+        
         
         function register () {
             $state.go('register');

@@ -1,28 +1,21 @@
 <div ng-cloak>
 <script type="text/javascript" src="javascript.js"></script>
 	<div ng-switch="vm.isAuthenticated()">
-		<div class="well" ng-switch-when="true">
+		<div ng-switch-when="true">
 			<div class="row">
 	    		<div ng-repeat="photo in vm.photos">
     				<div class="col-md-4">
     					 <div class="well">
 				        	<b><FONT size="5"> Titre : {{photo.title}}</FONT></b>
-				             <div class="well"> 
-					             <div>
-				             		<img  height="300" width="250" ng-src="{{photo.uri}}" alt="Photo"/>
-					             </div> 
-				             </div>
-				    			<p>Description : {{photo.description}}</p>
+				             <div>
+			             		<img  height="300" width="250" ng-src="{{photo.uri}}" alt="Photo"/>
+				             </div> 
 
-				    			<div ng-repeat="vote in vm.votes">
-										<div ng-switch="vm.photoAreEquals(photo.id,vote.photo.id)">
-											<div class="well" ng-switch-when="true">
-												<span> {{vote.stars}}</span>
-											</div>
-										</div>
-								</div>
-				    			<p>La moyenne des votes : {{vm.calculMoyenne('5')}} </p>			    			
-				    			<div ng-switch="vm.verifVote()">
+				    			<p>Description : {{photo.description}}</p>
+				    			<p>La moyenne des votes : {{vm.calculMoyenne(photo.id)}} </p>
+				    			<p>Nombres de votes : {{vm.nbVote}} </p>
+
+				    			<div ng-switch="vm.verifVote(photo.id)">
 				    				<div ng-switch-when="true">
 						             	<p> Notez la photo :
 						             		<span ng-click="vm.saveVote('1',photo.id,vm.account.id)" title="1 étoile">☆</span>
@@ -40,18 +33,25 @@
 								
 								<div class="well">
 									<p> Tous les commentaires : </p>
-										<div ng-repeat="com in vm.comments">
-											<div ng-switch="vm.photoAreEquals(photo.id,com.photo.id)">
-												<div class="well" ng-switch-when="true">
-													<span> {{com.comment}}</span>
-												</div>
+									<!--
+									<div ng-repeat="com in vm.CommentOnePhoto">
+										<div ng-if="com.idPhoto == photo.id">
+											<span> {{com.valueComment}} </span>
+										</div>
+									</div>
+									-->
+									<div ng-repeat="com in vm.comments">
+										<div ng-switch="vm.photoAreEquals(photo.id,com.photo.id)">
+											<div class="well" ng-switch-when="true">
+												<span> User : <u>  {{com.siteUser.firstName}}  </u> </span>
+												<span>{{com.comment}}</span></span>
 											</div>
 										</div>
+									</div>									
 								</div>
+								
 	 			    			<p>Laissez un commentaire :<TEXTAREA ng-model="vm.MsgComment"  rows="3" cols="35" name="Comment"></TEXTAREA></p>
 				    			<INPUT TYPE="submit" ng-click="vm.saveComment(vm.MsgComment,photo.id,vm.account.id)" NAME="SubmitComment" VALUE="Valider">
-				    			
-				    			<INPUT TYPE="submit" ng-click="vm.calculMoyenneTEST()" NAME="Test" VALUE="Test">
 						 </div> 
 					</div>
 			 	</div>
