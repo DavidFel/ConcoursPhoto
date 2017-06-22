@@ -46,6 +46,9 @@ public class UserPhotoCommentResource {
 	PhotoRepository photoRepository;
 	@Autowired
 	SiteUserRepository siteUserRepository;
+	
+	
+	
     /**
      * POST  /user-photo-comments : Create a new userPhotoComment.
      *
@@ -100,7 +103,14 @@ public class UserPhotoCommentResource {
         List<UserPhotoComment> userPhotoComments = userPhotoCommentRepository.findAll();
         return userPhotoComments;
     }
-
+    @PostMapping("/user-photo-comment-one-photo")
+    @Timed 
+    public List<UserPhotoComment> getCommentOnePhoto(@RequestParam("id") Long id) {
+    	Photo photo;
+    	photo= photoRepository.findOne(id);
+    	return  userPhotoCommentRepository.findByphoto(photo);
+    }
+    
     /**
      * GET  /user-photo-comments/:id : get the "id" userPhotoComment.
      *
@@ -153,6 +163,5 @@ public class UserPhotoCommentResource {
             .body(result);
     }
 
-    
 
 }

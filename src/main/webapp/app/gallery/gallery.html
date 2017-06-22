@@ -1,7 +1,7 @@
 <div ng-cloak>
 <script type="text/javascript" src="javascript.js"></script>
 	<div ng-switch="vm.isAuthenticated()">
-		<div class="well" ng-switch-when="true">
+		<div ng-switch-when="true">
 			<div class="row">
 	    		<div ng-repeat="photo in vm.photos">
     				<div class="col-md-4">
@@ -15,7 +15,7 @@
 				    			<p>La moyenne des votes : {{vm.calculMoyenne(photo.id)}} </p>
 				    			<p>Nombres de votes : {{vm.nbVote}} </p>
 
-				    			<div ng-switch="vm.verifVote()">
+				    			<div ng-switch="vm.verifVote(photo.id)">
 				    				<div ng-switch-when="true">
 						             	<p> Notez la photo :
 						             		<span ng-click="vm.saveVote('1',photo.id,vm.account.id)" title="1 étoile">☆</span>
@@ -33,14 +33,21 @@
 								
 								<div class="well">
 									<p> Tous les commentaires : </p>
-										<div ng-repeat="com in vm.comments">
-											<div ng-switch="vm.photoAreEquals(photo.id,com.photo.id)">
-												<div class="well" ng-switch-when="true">
-													<span> User : <u>  {{com.siteUser.firstName}}  </u> </span>
-												 	<span>{{com.comment}}</span></span>
-												</div>
+									<!--
+									<div ng-repeat="com in vm.CommentOnePhoto">
+										<div ng-if="com.idPhoto == photo.id">
+											<span> {{com.valueComment}} </span>
+										</div>
+									</div>
+									-->
+									<div ng-repeat="com in vm.comments">
+										<div ng-switch="vm.photoAreEquals(photo.id,com.photo.id)">
+											<div class="well" ng-switch-when="true">
+												<span> User : <u>  {{com.siteUser.firstName}}  </u> </span>
+												<span>{{com.comment}}</span></span>
 											</div>
 										</div>
+									</div>									
 								</div>
 								
 	 			    			<p>Laissez un commentaire :<TEXTAREA ng-model="vm.MsgComment"  rows="3" cols="35" name="Comment"></TEXTAREA></p>

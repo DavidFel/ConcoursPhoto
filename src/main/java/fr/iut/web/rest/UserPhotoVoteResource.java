@@ -130,15 +130,25 @@ public class UserPhotoVoteResource {
     	return  userPhotoVoteRepository.findByphoto(photo);
     }
     
-    @GetMapping("/user-photo-votes-oneSiteUser")
+    @PostMapping("/user-photo-votes-oneSiteUser")
     @Timed
-    public List<UserPhotoVote> getVoteOneUser(@PathVariable Long idsiteUser) {
+    public List<UserPhotoVote> getVoteOneSiteUser(@RequestParam("id") Long idsiteUser) {
     	
     	SiteUser user;
     	user= siteUserRepository.findOne(idsiteUser);
         List<UserPhotoVote> userPhotoVotes = userPhotoVoteRepository.findBysiteUser(user);
         return userPhotoVotes;
     }
+    
+    /*
+    @PostMapping("/user-photo-votes-verifVote")
+    @Timed
+    public Boolean dejaVote(@RequestParam("id") Long idsiteUser) {
+    	Boolean bool=false;
+
+        return bool;
+    }
+    *\
     
     /**
      * GET  /user-photo-votes/:id : get the "id" userPhotoVote.
