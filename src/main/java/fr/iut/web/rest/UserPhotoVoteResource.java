@@ -121,6 +121,25 @@ public class UserPhotoVoteResource {
         return userPhotoVotes;
     }
 
+    
+    @PostMapping("/user-photo-votes-onePhoto")
+    @Timed 
+    public List<UserPhotoVote> getVoteOnePhoto(@RequestParam("id") Long id) {
+    	Photo photo;
+    	photo= photoRepository.findOne(id);
+    	return  userPhotoVoteRepository.findByphoto(photo);
+    }
+    
+    @GetMapping("/user-photo-votes-oneSiteUser")
+    @Timed
+    public List<UserPhotoVote> getVoteOneUser(@PathVariable Long idsiteUser) {
+    	
+    	SiteUser user;
+    	user= siteUserRepository.findOne(idsiteUser);
+        List<UserPhotoVote> userPhotoVotes = userPhotoVoteRepository.findBysiteUser(user);
+        return userPhotoVotes;
+    }
+    
     /**
      * GET  /user-photo-votes/:id : get the "id" userPhotoVote.
      *
