@@ -15,6 +15,7 @@
         vm.fileDescription= "......";
         vm.fileTitle="Tapez votre titre";
         
+        
 
         //vm.uploadFileToUrl(files[0],fileToUpload);
 
@@ -27,7 +28,6 @@
         vm.uploadFiles = function(files,description,titre) {
         	console.log({description});
         	console.log({titre});
-
         	if (!files || files.length === 0) {
             	console.log("nothing to upload");
         	}
@@ -36,6 +36,9 @@
        	 	var fd = new FormData();
        	 	//Take the first selected file
        	 	fd.append("file",files[0]);
+       	 	fd.append("description",description);
+       	 	fd.append("titre",titre);
+       	 	
        	    //$http.get('http://localhost:8080/#/depot')
        	 	console.log(files.length);
        	       
@@ -83,19 +86,9 @@
     	    console.log(req);
     	    
     	 }
-       	 	
+       	
        	 	
         };
-       
-        
-        vm.uploadFile=function() {
-        	console.log("ok uploadFile...");
-             
-          
-            console.info('fileToUpload: ', vm.fileToUpload);
-            
-        }
-        
-    
+
     }
 })();

@@ -1,5 +1,6 @@
 package fr.iut.repository;
 
+import fr.iut.domain.Photo;
 import fr.iut.domain.UserPhotoVote;
 
 import org.springframework.data.jpa.repository.*;
@@ -12,4 +13,7 @@ import java.util.List;
 @SuppressWarnings("unused")
 public interface UserPhotoVoteRepository extends JpaRepository<UserPhotoVote,Long> {
 
+	public  List<UserPhotoVote> findByphoto (Photo photo);
+	
 }
+

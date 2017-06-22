@@ -1,19 +1,25 @@
 package fr.iut.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import fr.iut.domain.UserPhotoVote;
 
+import fr.iut.domain.Photo;
+import fr.iut.domain.SiteUser;
+import fr.iut.domain.UserPhotoVote;
+import fr.iut.repository.PhotoRepository;
+import fr.iut.repository.SiteUserRepository;
 import fr.iut.repository.UserPhotoVoteRepository;
 import fr.iut.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,6 +39,11 @@ public class UserPhotoVoteResource {
     public UserPhotoVoteResource(UserPhotoVoteRepository userPhotoVoteRepository) {
         this.userPhotoVoteRepository = userPhotoVoteRepository;
     }
+    
+	@Autowired
+	PhotoRepository photoRepository;
+	@Autowired
+	SiteUserRepository siteUserRepository;
 
     /**
      * POST  /user-photo-votes : Create a new userPhotoVote.
@@ -73,6 +84,27 @@ public class UserPhotoVoteResource {
         UserPhotoVote result = userPhotoVoteRepository.save(userPhotoVote);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, userPhotoVote.getId().toString()))
+            .body(result);
+    }
+    
+    @PostMapping("/add-vote")
+    @Timed
+    public ResponseEntity<UserPhotoVote> createUserPhotoVoteAhmed(@RequestParam("photoID") Long idPhoto,@RequestParam("userID") Long idUser,@RequestParam("valueVote") Integer valueVote  ) throws URISyntaxException {
+        UserPhotoVote temp = new UserPhotoVote();
+        Photo photo;
+        SiteUser userDuSite;
+
+        photo = photoRepository.findOne(idPhoto);
+        userDuSite = siteUserRepository.findOne(1l);
+        
+        temp.setStars(valueVote);
+        temp.setDate(LocalDate.now());
+        temp.setPhoto(photo);
+        temp.setSiteUser(userDuSite);
+        
+        UserPhotoVote result = userPhotoVoteRepository.save(temp);
+        return ResponseEntity.created(new URI("/api/add-vote/" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
     }
 
