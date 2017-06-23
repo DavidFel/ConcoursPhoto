@@ -55,15 +55,24 @@ public byte[] data;
 		photo.setUri("content/images/" + file.getOriginalFilename());
 		photo.setFormat(file.getContentType());
 		photo.setSize((int) file.getSize());
-		log.info("uploading file '" + file.getOriginalFilename() + "' ");
-		try {
-			File destinationFichier = new File(System.getProperty("user.dir")+"/src/main/webapp/content/images/"+file.getOriginalFilename());
-			photo.setImage(file.getBytes());
-			photoRepository.save(photo);
-			log.info("Dir to save: "+destinationFichier);
-			file.transferTo(destinationFichier);
-		} catch (Exception ex) {
-			log.error("Failed to upload", ex);
+		
+		
+		if (photo.getFormat()== "image/jpeg" || photo.getFormat()== "image/png" )
+		{
+			try {
+				log.info("uploading file '" + file.getOriginalFilename() + "' ");
+				File destinationFichier = new File(System.getProperty("user.dir")+"/src/main/webapp/content/images/"+file.getOriginalFilename());
+				photo.setImage(file.getBytes());
+				photoRepository.save(photo);
+				log.info("Dir to save: "+destinationFichier);
+				file.transferTo(destinationFichier);
+			} catch (Exception ex) {
+				log.error("Failed to upload", ex);
+			}
+		
+		}
+		else{
+			log.info("Format file incorrect" );
 		}
 	
 	}

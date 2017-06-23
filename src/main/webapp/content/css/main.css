@@ -1,7 +1,11 @@
 body {
-  background: #fafafa;
+  background: #787878;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: #333; }
+  color: #151515; }
+  
+  etoile {
+
+  color: #fff; }
 
 /* ==========================================================================
 Hide ng-cloak on page load, https://docs.angularjs.org/api/ng/directive/ngCloak

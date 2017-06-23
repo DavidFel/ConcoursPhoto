@@ -139,6 +139,7 @@ public class UserPhotoCommentResource {
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
     
+<<<<<<< HEAD
 
 	@PostMapping("/add-comment")
 	@Timed
@@ -161,6 +162,8 @@ public class UserPhotoCommentResource {
 		return ResponseEntity.created(new URI("/api/add-comment/" + result.getId()))
 				.headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString())).body(result);
 	}
+=======
+>>>>>>> 57849fecb57b7e66a5d563e4e09bbfcd10342fc8
 
     @PostMapping("/add-comment")
     @Timed
@@ -169,7 +172,6 @@ public class UserPhotoCommentResource {
         UserPhotoComment comment = new UserPhotoComment();
         Photo photo;
         SiteUser userDuSite;
-
         
         photo = photoRepository.findOne(PhotoID);
         userDuSite = siteUserRepository.findOne(1l);
