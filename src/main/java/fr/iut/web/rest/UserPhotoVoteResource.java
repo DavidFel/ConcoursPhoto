@@ -141,14 +141,29 @@ public class UserPhotoVoteResource {
     }
     
     /*
-    @PostMapping("/user-photo-votes-verifVote")
+    @PostMapping("/user-photo-votes-verif-vote")
     @Timed
-    public Boolean dejaVote(@RequestParam("id") Long idsiteUser) {
-    	Boolean bool=false;
+    public Boolean verifVote(@RequestParam("idPhoto") Long idPhoto,@RequestParam("idUser") Long idUser) {
+    	
+    	Boolean Bool=true;
+    	
+    	Photo photo;
+    	photo= photoRepository.findOne(idPhoto);
+    	
+    	SiteUser user;
+    	user= siteUserRepository.findOne(idUser);
+    	
+    	List<UserPhotoVote> photoVotes;
+    	photoVotes=userPhotoVoteRepository.findByphoto(photo);
 
-        return bool;
-    }
-    *\
+    	for (UserPhotoVote vote : photoVotes){
+    		if (vote.getSiteUser().getId()==user.getId()){
+    			log.debug("Vote siteUser Id : " + vote.getSiteUser().getId() + " IdUserCourant" + user.getId());
+    			Bool=false;
+    		}
+    	}
+		return Bool;
+    }*\
     
     /**
      * GET  /user-photo-votes/:id : get the "id" userPhotoVote.

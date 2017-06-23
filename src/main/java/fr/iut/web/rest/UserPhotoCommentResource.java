@@ -140,10 +140,9 @@ public class UserPhotoCommentResource {
     }
     
 
-
     @PostMapping("/add-comment")
     @Timed
-    public ResponseEntity<UserPhotoComment> createUserPhotoComment(@RequestParam("ValueComment") String ValueComment,@RequestParam("UserID") Long idUser,@RequestParam("PhotoID") Long PhotoID  ) throws URISyntaxException {
+    public ResponseEntity<UserPhotoComment> createUserPhotoCommentAhmed(@RequestParam("ValueComment") String ValueComment,@RequestParam("UserID") Long idUser,@RequestParam("PhotoID") Long PhotoID  ) throws URISyntaxException {
 
         UserPhotoComment comment = new UserPhotoComment();
         Photo photo;

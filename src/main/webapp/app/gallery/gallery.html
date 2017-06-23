@@ -43,7 +43,7 @@
 									<div ng-repeat="com in vm.comments">
 										<div ng-switch="vm.photoAreEquals(photo.id,com.photo.id)">
 											<div class="well" ng-switch-when="true">
-												<span> User : <u>  {{com.siteUser.firstName}}  </u> </span>
+												<span>  <u>  {{com.siteUser.firstName}} :</u> </span>
 												<span>{{com.comment}}</span></span>
 											</div>
 										</div>
