@@ -139,6 +139,29 @@ public class UserPhotoCommentResource {
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
     
+<<<<<<< HEAD
+	@PostMapping("/add-comment")
+	@Timed
+	public ResponseEntity<UserPhotoComment> createUserPhotoCommentAhmed(
+			@RequestParam("ValueComment") String valueComment,
+			@RequestParam("UserID") Long idUser, //
+			@RequestParam("PhotoID") Long photoId //
+	) throws URISyntaxException {
+		Photo photo = photoRepository.findOne(photoId);
+		SiteUser userDuSite = siteUserRepository.findOne(1l);
+
+		UserPhotoComment comment = new UserPhotoComment();
+		comment.setComment(valueComment);
+		comment.setDate(LocalDate.now());
+		comment.setPhoto(photo);
+		comment.setSiteUser(userDuSite);
+
+		UserPhotoComment result = userPhotoCommentRepository.save(comment);
+
+		return ResponseEntity.created(new URI("/api/add-comment/" + result.getId()))
+				.headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString())).body(result);
+	}
+=======
 
     @PostMapping("/add-comment")
     @Timed
@@ -163,5 +186,6 @@ public class UserPhotoCommentResource {
             .body(result);
     }
 
+>>>>>>> d4ec153457e6ff76ebda0cffdd07824a38e7fbb2
 
 }
