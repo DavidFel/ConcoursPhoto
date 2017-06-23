@@ -155,7 +155,7 @@
 		
 		// Fonction qui va verifier si le user à déja voter
         vm.verifVote = function(id){
-			return false;
+			return true;
         }; 
 		
 		
