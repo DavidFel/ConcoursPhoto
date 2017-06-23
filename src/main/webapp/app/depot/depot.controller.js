@@ -15,6 +15,7 @@
         vm.fileDescription= "......";
         vm.fileTitle="Tapez votre titre";
         
+        
 
         //vm.uploadFileToUrl(files[0],fileToUpload);
 
