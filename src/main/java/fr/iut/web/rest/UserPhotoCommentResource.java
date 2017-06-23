@@ -140,37 +140,13 @@ public class UserPhotoCommentResource {
     }
     
 
-	@PostMapping("/add-comment")
-	@Timed
-	public ResponseEntity<UserPhotoComment> createUserPhotoCommentAhmed(
-			@RequestParam("ValueComment") String valueComment,
-			@RequestParam("UserID") Long idUser, //
-			@RequestParam("PhotoID") Long photoId //
-	) throws URISyntaxException {
-		Photo photo = photoRepository.findOne(photoId);
-		SiteUser userDuSite = siteUserRepository.findOne(1l);
-
-		UserPhotoComment comment = new UserPhotoComment();
-		comment.setComment(valueComment);
-		comment.setDate(LocalDate.now());
-		comment.setPhoto(photo);
-		comment.setSiteUser(userDuSite);
-
-		UserPhotoComment result = userPhotoCommentRepository.save(comment);
-
-		return ResponseEntity.created(new URI("/api/add-comment/" + result.getId()))
-				.headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString())).body(result);
-	}
-
-
     @PostMapping("/add-comment")
     @Timed
-    public ResponseEntity<UserPhotoComment> createUserPhotoComment(@RequestParam("ValueComment") String ValueComment,@RequestParam("UserID") Long idUser,@RequestParam("PhotoID") Long PhotoID  ) throws URISyntaxException {
+    public ResponseEntity<UserPhotoComment> createUserPhotoCommentAhmed(@RequestParam("ValueComment") String ValueComment,@RequestParam("UserID") Long idUser,@RequestParam("PhotoID") Long PhotoID  ) throws URISyntaxException {
 
         UserPhotoComment comment = new UserPhotoComment();
         Photo photo;
         SiteUser userDuSite;
-
         
         photo = photoRepository.findOne(PhotoID);
         userDuSite = siteUserRepository.findOne(1l);
@@ -185,7 +161,6 @@ public class UserPhotoCommentResource {
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
     }
-
 
 
 }
