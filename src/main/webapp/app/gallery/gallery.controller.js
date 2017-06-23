@@ -130,8 +130,6 @@
 			}		
         };
         
-        
-        
 		// Calcul moyenne d'une photo
         vm.calculMoyenne= function(id)
         {	
@@ -157,20 +155,7 @@
 		
 		// Fonction qui va verifier si le user à déja voter
         vm.verifVote = function(id){
-        	
-		console.log(" verif Vote en cours" );
-			//var objectToSend = new FormData();
-			//objectToSend.append("idPhoto", id);
-			//objectToSend.append("idUser", '1');
-	
-			//var req = $http.post('/api/user-photo-votes-verif-vote',objectToSend, {
-			//transformRequest: angular.identity,
-			//headers: {
-			//'Content-Type': undefined,
-			//}
-			
-
-			return true;
+			return false;
         }; 
 		
 		

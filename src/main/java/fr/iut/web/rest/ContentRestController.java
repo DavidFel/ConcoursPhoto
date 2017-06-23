@@ -44,21 +44,18 @@ public byte[] data;
 	
 	public void uploadImages(//@RequestBody ImageData image){
 			@RequestParam("file") MultipartFile file,@RequestParam("description") String description,@RequestParam("titre") String titre) {
-		//log.info("uploading file");
-	    //@RequestPart("file") MultipartFile file) {
+
 		Photo photo = new Photo();
-		//photo.setDescription("ok");
+
 		photo.setDescription(description);
 		photo.setDateCreate(LocalDate.now());
-		//photo.setTitle(file.getName());
 		photo.setTitle(titre);
 		photo.setUri("content/images/" + file.getOriginalFilename());
 		photo.setFormat(file.getContentType());
 		photo.setSize((int) file.getSize());
-		
-		
-		if (photo.getFormat()== "image/jpeg" || photo.getFormat()== "image/png" )
-		{
+	
+		//if (photo.getFormat()== "image/jpeg" || photo.getFormat()== "image/png" )
+		//{
 			try {
 				log.info("uploading file '" + file.getOriginalFilename() + "' ");
 				File destinationFichier = new File(System.getProperty("user.dir")+"/src/main/webapp/content/images/"+file.getOriginalFilename());
@@ -70,10 +67,10 @@ public byte[] data;
 				log.error("Failed to upload", ex);
 			}
 		
-		}
-		else{
-			log.info("Format file incorrect" );
-		}
+		//}
+		//else{
+			//log.info("Format file incorrect" );
+		//}
 	
 	}
 	

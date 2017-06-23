@@ -146,7 +146,7 @@ public class UserPhotoVoteResource {
     public Boolean verifVote(@RequestParam("idPhoto") Long idPhoto,@RequestParam("idUser") Long idUser) {
     	
     	Boolean Bool=true;
-    	
+    	log.debug("On passe bien dans le verif Vote cote javaS");
     	Photo photo;
     	photo= photoRepository.findOne(idPhoto);
     	
@@ -163,8 +163,9 @@ public class UserPhotoVoteResource {
     		}
     	}
 		return Bool;
-    }*\
-    
+    }
+    *\
+   
     /**
      * GET  /user-photo-votes/:id : get the "id" userPhotoVote.
      *
