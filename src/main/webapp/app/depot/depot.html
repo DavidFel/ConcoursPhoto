@@ -1,4 +1,5 @@
 <div ng-cloak>
+	<p>  Seul les fichiers au format JPEG et PNG sont acceptés ! </p>
      <label for="file">Fichier :</label><br />
 
      <input type="hidden" name="MAX_FILE_SIZE" value="1048576" />
@@ -6,13 +7,6 @@
      <input type="file" name="file" id="file" 
      	onchange="angular.element(this).controller().DefineFileToUpload(this.files)"
      	 /><br />
-     	 
-     	 <div id="drop_zone" style='border: solid'
- 		drag-over="ctrl.onDragOver($event)" drag-over-class="drag-over"
- 		drop-accept="ctrl.dropAccept($event)"
-		drop="ctrl.onDrop($data, $event)" drop-effect="link" 
-		>Drop files here...</div>
-		
 
      	<label for="title">Titre du fichier (max. 50 caractères) :</label><br />
 
