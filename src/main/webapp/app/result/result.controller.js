@@ -15,8 +15,10 @@
         vm.login = LoginService.open;
         vm.register = register;
 		vm.votes = null;
+		vm.photos=null;
+		vm.VoteOnePhoto={};
 
-		vm.uriBestPhoto= vm.uriBestPhoto="content/images/comment-dessiner-un-visage-walter-white.jpg";
+		vm.uriBestPhoto= getURIBestPhoto();
         
         $scope.$on('authenticationSuccess', function() {
             getAccount();
@@ -34,13 +36,24 @@
         function register () {
             $state.go('register');
         }
-        
-        //Charger tous les votes
-        function loadAllVotePhoto() {
+
+        function getURIBestPhoto() {
+        	var URI= "";
+        	var MaxVote=0;
         	UserPhotoVote.query(function(result) {
-        		vm.votes = result;
-                vm.searchQuery = null;
-        	});
+    			vm.votes = result;
+            	vm.searchQuery = null;
+            	angular.forEach(vm.votes,function(value,prop,obj){
+						//console.log(value.stars + " " + value.photo.uri);
+						if (value.stars > MaxVote) {
+							MaxVote = value.stars;
+							URI = value.photo.uri;
+							console.log("La valeur de URI : " + URI );
+							vm.uriBestPhoto=URI;
+						}
+					});
+				});
+			//return URI;
         };
   
     }
