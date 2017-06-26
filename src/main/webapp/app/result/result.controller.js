@@ -14,6 +14,10 @@
         vm.isAuthenticated = null;
         vm.login = LoginService.open;
         vm.register = register;
+		vm.votes = null;
+
+		vm.uriBestPhoto= vm.uriBestPhoto="content/images/comment-dessiner-un-visage-walter-white.jpg";
+        
         $scope.$on('authenticationSuccess', function() {
             getAccount();
         });
@@ -26,8 +30,18 @@
                 vm.isAuthenticated = Principal.isAuthenticated;
             });
         }
+        
         function register () {
             $state.go('register');
         }
+        
+        //Charger tous les votes
+        function loadAllVotePhoto() {
+        	UserPhotoVote.query(function(result) {
+        		vm.votes = result;
+                vm.searchQuery = null;
+        	});
+        };
+  
     }
 })();
