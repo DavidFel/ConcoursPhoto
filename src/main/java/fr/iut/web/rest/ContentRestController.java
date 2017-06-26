@@ -4,6 +4,7 @@ import java.io.File;
 import java.net.URISyntaxException;
 import java.time.LocalDate;
 
+import org.hibernate.criterion.LikeExpression;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,8 +55,8 @@ public byte[] data;
 		photo.setFormat(file.getContentType());
 		photo.setSize((int) file.getSize());
 	
-		//if (photo.getFormat()== "image/jpeg" || photo.getFormat()== "image/png" )
-		//{
+		if (photo.getFormat().contains("jpeg")  || photo.getFormat().contains("png") )
+		{
 			try {
 				log.info("uploading file '" + file.getOriginalFilename() + "' ");
 				File destinationFichier = new File(System.getProperty("user.dir")+"/src/main/webapp/content/images/"+file.getOriginalFilename());
@@ -66,11 +67,10 @@ public byte[] data;
 			} catch (Exception ex) {
 				log.error("Failed to upload", ex);
 			}
-		
-		//}
-		//else{
-			//log.info("Format file incorrect" );
-		//}
+		}
+		else{
+			log.info("Format file incorrect" );
+		}
 	
 	}
 	
