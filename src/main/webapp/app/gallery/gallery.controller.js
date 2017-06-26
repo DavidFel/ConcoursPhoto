@@ -189,6 +189,8 @@
 				
 				}).success(function(data, status, headers, config) {
 				console.log("Success");
+				//verifVote(PhotoID);
+				$state.reload();
 		
 				})
 				.error(function(err) {
@@ -219,7 +221,7 @@
 				
 				}).success(function(data, status, headers, config) {
 				console.log("Success");
-		
+				$state.reload();
 				})
 				.error(function(err) {
 				console.log("ERROR", err);
