@@ -5,9 +5,9 @@
         .module('concoursphotoApp')
         .controller('ResultController', ResultController);
 
-    ResultController.$inject = ['$scope', 'Principal', 'LoginService', '$state'];
+    ResultController.$inject = ['$http', '$scope', 'Principal', 'LoginService', 'Photo', '$state', 'UserPhotoVote'];
 
-    function ResultController ($scope, Principal, LoginService, $state) {
+    function ResultController ($http, $scope, Principal, LoginService, Photo, $state, UserPhotoVote) {
         var vm = this;
 
         vm.account = null;
