@@ -8,6 +8,7 @@ import fr.iut.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +23,7 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/api")
+
 public class PhotoResource {
 
     private final Logger log = LoggerFactory.getLogger(PhotoResource.class);
@@ -74,6 +76,16 @@ public class PhotoResource {
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, photo.getId().toString()))
             .body(result);
+    }
+    
+    
+    @PostMapping("/update-photos-Ahmed")
+    @Timed
+    public Photo updatePhotoAhmed(@RequestParam("idPhoto") Long idPhoto,@RequestParam("Moyenne") Float moyenne,@RequestParam("nbVote") Integer nbVote) {
+       Photo photo = photoRepository.findOne(idPhoto);
+       photo.setScore((float) moyenne);
+       photo.setNbVue((Integer)nbVote);
+       return photoRepository.save(photo);  
     }
 
     /**
