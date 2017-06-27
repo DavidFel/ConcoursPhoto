@@ -22,6 +22,8 @@
 		vm.DescriptionPhoto="";
 		vm.titlePhoto="";
 		vm.userPhoto="";
+		vm.laMoyenne=0;
+		vm.nbVote=0;
         
         $scope.$on('authenticationSuccess', function() {
             getAccount();
@@ -47,15 +49,17 @@
     			vm.votes = result;
             	vm.searchQuery = null;
             	angular.forEach(vm.votes,function(value,prop,obj){
-					if (value.stars > MaxVote) {
-						MaxVote = value.stars;
-						URI = value.photo.uri;
-						vm.titlePhoto=value.photo.title;
-						vm.DescriptionPhoto=value.photo.description;
-						vm.uriBestPhoto=URI;
-						vm.userPhoto=value.photo.siteUser.firstName;
-					}
-				});
+						if (value.stars > MaxVote) {
+							MaxVote = value.stars;
+							URI = value.photo.uri;
+							vm.titlePhoto=value.photo.title;
+							vm.DescriptionPhoto=value.photo.description;
+							vm.uriBestPhoto=URI;
+							vm.userPhoto=value.photo.siteUser.firstName;
+							vm.laMoyenne=value.score;
+							vm.nbVote=value.nbVue;
+						}
+					});
 				});
 			//return URI;
         };

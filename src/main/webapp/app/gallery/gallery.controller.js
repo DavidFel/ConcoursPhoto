@@ -186,13 +186,13 @@
 			}
 			
 			}).success(function(data, status, headers, config) {
-			console.log("Success");
+			console.log("Success save vote");
 			//verifVote(PhotoID);
 			$state.reload();
 	
 			})
 			.error(function(err) {
-			console.log("ERROR", err);
+			console.log("ERROR save vote", err);
 			});
 		}
 		//loadVoteOnePhoto(PhotoID);
@@ -218,11 +218,11 @@
 			}
 			
 			}).success(function(data, status, headers, config) {
-			console.log("Success");
+			console.log("Success save comment");
 			$state.reload();
 			})
 			.error(function(err) {
-			console.log("ERROR", err);
+			console.log("ERROR save comment", err);
 			});
 		}
 

@@ -1,15 +1,17 @@
 <div ng-cloak>
-	<div ng-switch="vm.isAuthenticated()">
-		<div ng-switch-when="true">
-			<p> La photo gagnante est :  {{vm.titlePhoto}}</p>
-			<p> Le nom du participant est  :  {{vm.userPhoto}}</p>
-			<b><FONT size="5"> Titre : {{vm.titlePhoto}} </FONT></b>
-             <div class="well">
-         		<img  height="300" width="250" ng-src="{{vm.uriBestPhoto}}" alt="Photo"/>
-             </div> 
-    		<p>Description : {{vm.DescriptionPhoto}} </p>
-			<p>La moyenne des votes : {{vm.laMoyenne}} </p>
-			<p>Le nombre de vote : {{vm.nbVote}}  </p>
-		</div>
-	</div> 
+	<Center>
+		<div ng-switch="vm.isAuthenticated()">
+			<div ng-switch-when="true">
+				<p> La photo gagnante est :  {{vm.titlePhoto}}</p>
+				<p> Le nom du participant est  :  {{vm.userPhoto}}</p>
+				<b><FONT size="5"> Titre : {{vm.titlePhoto}} </FONT></b>
+	             <div class="well">
+	         		<img  height="300" width="250" ng-src="{{vm.uriBestPhoto}}" alt="Photo"/>
+	             </div> 
+	    		<p>Description : {{vm.DescriptionPhoto}} </p>
+				<p>La moyenne des votes : {{vm.laMoyenne}} </p>
+				<p>Le nombre de vote : {{vm.nbVote}}  </p>
+			</div>
+		</div> 
+	</Center>
 </div>
