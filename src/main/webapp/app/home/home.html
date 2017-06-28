@@ -25,7 +25,30 @@
                 Vous souhaitez visiter son site : <a href="http://jeanlucveret.fr/">jeanlucveret.fr</a> </p>
 
                 <p class="lead">La description du concours : <a href="content/fichier-pdf/Présentation projet - Expo (ORANGE).pdf" title="DescriptionConCoursPhoto"> Ici </a><p/>
-
+				<br>
+				<br>
+				<center>
+					<div class="row">
+						 <div ng-switch="vm.isAuthenticated()">
+						 	<div class="col-md-4">
+								<div ng-switch-when="true" >
+									<INPUT TYPE="submit" NAME="depot" VALUE="Je veux Participer">
+								</div>
+								<div ng-switch-when="false" >
+									<INPUT TYPE="submit" NAME="depot" VALUE="Je veux Participer">
+								</div>
+						 	</div>
+						 	<div class="col-md-4">
+								<div ng-switch-when="true" >
+									<INPUT TYPE="submit" NAME="gallery" VALUE="Je veux voter">
+								</div>
+								<div ng-switch-when="false" >
+									<INPUT TYPE="submit" NAME="gallery" VALUE="Je veux voter">
+								</div>
+					 		</div>
+						</div>
+					</div>
+				</center>
         </div>
     </div>
 </div>
