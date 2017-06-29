@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import fr.iut.domain.SiteUser;
 import fr.iut.domain.Photo;
 import fr.iut.repository.PhotoRepository;
 
@@ -36,24 +37,22 @@ public byte[] data;
 }
 	@RequestMapping(
 			path="/imagesData",
-			//method=RequestMethod.GET, 
-			//name="/images"
-			//?? consumes="multipart/form-data"
+
 			method=RequestMethod.POST,
 			consumes = {"multipart/form-data"})
 
 	
-	public void uploadImages(//@RequestBody ImageData image){
-			@RequestParam("file") MultipartFile file,@RequestParam("description") String description,@RequestParam("titre") String titre) {
-
+	public void uploadImages(@RequestParam("file") MultipartFile file,@RequestParam("description") String description,@RequestParam("titre") String titre) {
+		
+		//SiteUser user= new SiteUser();
 		Photo photo = new Photo();
-
 		photo.setDescription(description);
 		photo.setDateCreate(LocalDate.now());
 		photo.setTitle(titre);
 		photo.setUri("content/images/" + file.getOriginalFilename());
 		photo.setFormat(file.getContentType());
 		photo.setSize((int) file.getSize());
+		//photo.setSiteUser(user);
 	
 		if (photo.getFormat().contains("jpeg")  || photo.getFormat().contains("png") )
 		{

@@ -80,7 +80,16 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     @Column(name = "reset_date")
     private ZonedDateTime resetDate = null;
-
+    
+    /*
+    @OneToOne(mappedBy = "SiteUser")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private SiteUser SiteUser = new SiteUser();
+    
+    @OneToOne
+    private SiteUser siteUser;*/
+    
     @JsonIgnore
     @ManyToMany
     @JoinTable(

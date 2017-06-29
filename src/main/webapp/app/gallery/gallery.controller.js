@@ -186,13 +186,12 @@
 			}
 			
 			}).success(function(data, status, headers, config) {
-			console.log("Success save vote");
-			//verifVote(PhotoID);
-			$state.reload();
-	
+				console.log("Success save vote");
+				//verifVote(PhotoID);
+				$state.reload();
 			})
 			.error(function(err) {
-			console.log("ERROR save vote", err);
+				console.log("ERROR save vote", err);
 			});
 		}
 		//loadVoteOnePhoto(PhotoID);
@@ -225,7 +224,7 @@
 			console.log("ERROR save comment", err);
 			});
 		}
-
+saveVote
 		loadCommentsOnePhoto(PhotoID);
 		vm.MsgComment= "Saisir votre commentaire....";
     };// Fin save comment
