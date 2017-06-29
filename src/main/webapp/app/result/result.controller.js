@@ -45,7 +45,7 @@
 
         
         function getURIBestPhoto() {
-        	loadAllPhoto();
+
         	var URI= "";
         	var MaxVote=0;
         	Photo.query(function(result) {
