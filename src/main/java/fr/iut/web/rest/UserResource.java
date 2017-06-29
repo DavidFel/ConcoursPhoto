@@ -2,7 +2,10 @@ package fr.iut.web.rest;
 
 import fr.iut.config.Constants;
 import com.codahale.metrics.annotation.Timed;
+
+import fr.iut.domain.SiteUser;
 import fr.iut.domain.User;
+import fr.iut.repository.SiteUserRepository;
 import fr.iut.repository.UserRepository;
 import fr.iut.security.AuthoritiesConstants;
 import fr.iut.service.MailService;
@@ -16,6 +19,7 @@ import io.swagger.annotations.ApiParam;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
@@ -54,8 +58,12 @@ import java.util.*;
  */
 @RestController
 @RequestMapping("/api")
-public class UserResource {
 
+
+public class UserResource {
+	@Autowired
+	SiteUserRepository siteUserRepository;
+	
     private final Logger log = LoggerFactory.getLogger(UserResource.class);
 
     private static final String ENTITY_NAME = "userManagement";
@@ -104,6 +112,15 @@ public class UserResource {
         } else {
             User newUser = userService.createUser(managedUserVM);
             mailService.sendCreationEmail(newUser);
+            SiteUser siteUser = new SiteUser();
+            siteUser.setId(newUser.getId());
+            siteUser.setEmail(newUser.getEmail());
+            siteUser.setCharte(true);
+
+            siteUser.setFirstName(newUser.getFirstName());
+            siteUser.setLastName(newUser.getLastName());
+            siteUserRepository.save(siteUser);
+            
             return ResponseEntity.created(new URI("/api/users/" + newUser.getLogin()))
                 .headers(HeaderUtil.createAlert( "userManagement.created", newUser.getLogin()))
                 .body(newUser);

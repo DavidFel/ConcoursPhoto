@@ -14,6 +14,21 @@
         vm.fileToUpload = null;
         vm.fileDescription= "......";
         vm.fileTitle="Tapez votre titre";
+    	vm.account = null;
+    	
+    	
+    $scope.$on('authenticationSuccess', function() {
+            getAccount();
+        });
+	
+	getAccount();
+		//Charger le user
+    function getAccount() {
+        Principal.identity().then(function(account) {
+            vm.account = account;
+            vm.isAuthenticated = Principal.isAuthenticated;
+        });
+    }
         
         
 
@@ -25,7 +40,7 @@
 			vm.fileToUpload=files
 		}
 		
-        vm.uploadFiles = function(files,description,titre) {
+        vm.uploadFiles = function(files,description,titre,idUser) {
         	if (!files || files.length === 0) {
             	console.log("nothing to upload");
         	}
@@ -36,7 +51,9 @@
        	 	fd.append("file",files[0]);
        	 	fd.append("description",description);
        	 	fd.append("titre",titre);
-
+       	 	fd.append("idUser",idUser);
+			
+			console.log("idUser : " + idUser);
 
     	    var req = $http.post('/api/content/imagesData',fd, { 
 

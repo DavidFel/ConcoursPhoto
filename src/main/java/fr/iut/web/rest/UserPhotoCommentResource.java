@@ -149,7 +149,7 @@ public class UserPhotoCommentResource {
         SiteUser userDuSite;
         
         photo = photoRepository.findOne(PhotoID);
-        userDuSite = siteUserRepository.findOne(1l);
+        userDuSite = siteUserRepository.findOne(idUser);
 
         comment.setComment(ValueComment);
         comment.setDate(LocalDate.now());

@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import fr.iut.domain.SiteUser;
 import fr.iut.domain.Photo;
 import fr.iut.repository.PhotoRepository;
+import fr.iut.repository.SiteUserRepository;
 
 
 @RestController
@@ -28,7 +29,8 @@ public class ContentRestController {
 	
 	@Autowired
 	PhotoRepository photoRepository;
-	
+	@Autowired
+	SiteUserRepository siteUserRepository;
 	
 
 public static class ImageData {
@@ -42,7 +44,7 @@ public byte[] data;
 			consumes = {"multipart/form-data"})
 
 	
-	public void uploadImages(@RequestParam("file") MultipartFile file,@RequestParam("description") String description,@RequestParam("titre") String titre) {
+	public void uploadImages(@RequestParam("file") MultipartFile file,@RequestParam("description") String description,@RequestParam("titre") String titre,@RequestParam("idUser") Long idUser) {
 		
 		//SiteUser user= new SiteUser();
 		Photo photo = new Photo();
@@ -52,8 +54,11 @@ public byte[] data;
 		photo.setUri("content/images/" + file.getOriginalFilename());
 		photo.setFormat(file.getContentType());
 		photo.setSize((int) file.getSize());
-		//photo.setSiteUser(user);
-	
+		
+		log.debug("Ici java id user: " + idUser);
+		SiteUser siteUser = siteUserRepository.findOne(idUser);
+		photo.setSiteUser(siteUser);
+		
 		if (photo.getFormat().contains("jpeg")  || photo.getFormat().contains("png") )
 		{
 			try {

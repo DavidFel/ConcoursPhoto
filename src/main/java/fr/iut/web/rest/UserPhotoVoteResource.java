@@ -106,7 +106,7 @@ public class UserPhotoVoteResource {
 		SiteUser userDuSite;
 
 		photo = photoRepository.findOne(idPhoto);
-		userDuSite = siteUserRepository.findOne(1l);
+		userDuSite = siteUserRepository.findOne(idUser);
 
 		temp.setStars(valueVote);
 		temp.setDate(LocalDate.now());

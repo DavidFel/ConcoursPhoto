@@ -155,10 +155,10 @@
 		
 		
 	// Fonction qui va verifier si le user à déja voter
-    vm.verifVote = function(id){
+    vm.verifVote = function(id,idUser){
     	var bool = true;
     	angular.forEach(vm.votes,function(value,prop,obj){
-			if (value.siteUser.id == '1' && value.photo.id==id)
+			if (value.siteUser.id == idUser && value.photo.id==id)
 			{
 				bool= false
 			}

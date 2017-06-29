@@ -15,7 +15,7 @@
 				    			<p>La moyenne des votes : {{vm.calculMoyenne(photo.id)}} </p>
 				    			<p>Nombres de votes : {{vm.nbVote}} </p>
 
-				    			<div ng-switch="vm.verifVote(photo.id)">
+				    			<div ng-switch="vm.verifVote(photo.id,vm.account.id)">
 				    				<div ng-switch-when="true">
 						             	<p> Notez la photo :
 						             		<span ng-click="vm.saveVote('1',photo.id,vm.account.id)" title="1 étoile">☆</span>
