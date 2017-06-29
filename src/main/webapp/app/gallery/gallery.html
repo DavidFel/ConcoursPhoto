@@ -53,6 +53,7 @@
 	 			    			<p>Laissez un commentaire : <TEXTAREA ng-model="vm.MsgComment"  rows="3" cols="35" name="Comment"></TEXTAREA></p>
 	 			    			
 				    			<INPUT TYPE="submit" ng-click="vm.saveComment(vm.MsgComment,photo.id,vm.account.id)" NAME="SubmitComment" VALUE="Valider">
+				    			<INPUT TYPE="submit" ng-click="vm.UpdateMoyennePhoto(photo.id,vm.calculMoyenne(photo.id),vm.nbVote)" NAME="Save Moyenne" VALUE="Save Moyenne">
 				    			
 				
 						 </div> 

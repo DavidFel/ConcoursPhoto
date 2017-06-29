@@ -392,4 +392,11 @@ public class PhotoResourceIntTest {
     public void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(Photo.class);
     }
+    
+    
+    // Tester le calcule de la moyenne
+    @Test
+    public void getMoyenneVotePhoto() throws Exception {
+        
+    }
 }

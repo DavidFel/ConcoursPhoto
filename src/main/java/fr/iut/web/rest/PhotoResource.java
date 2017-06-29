@@ -2,8 +2,9 @@ package fr.iut.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import fr.iut.domain.Photo;
-
+import fr.iut.domain.UserPhotoVote;
 import fr.iut.repository.PhotoRepository;
+import fr.iut.repository.UserPhotoVoteRepository;
 import fr.iut.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
@@ -25,7 +26,12 @@ import java.util.Optional;
 @RequestMapping("/api")
 
 public class PhotoResource {
-
+	@Autowired
+	UserPhotoVoteRepository UserPhotoVote;
+	
+	@Autowired
+	PhotoRepository RepositoryPhoto;
+	
     private final Logger log = LoggerFactory.getLogger(PhotoResource.class);
 
     private static final String ENTITY_NAME = "photo";
@@ -127,6 +133,22 @@ public class PhotoResource {
         log.debug("REST request to delete Photo : {}", id);
         photoRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+    }
+    
+    @GetMapping("/get-moyenne-vote-photo")
+    @Timed
+    public float getMoyenneVotePhoto(@RequestParam("idPhoto") Long idPhoto) {
+    		float laMoyenne=0;
+    		Integer nb =0;
+    		Photo laPhoto = new Photo();
+    		laPhoto= RepositoryPhoto.findOne(idPhoto);
+    		List<UserPhotoVote> mesVotes = UserPhotoVote.findByphoto(laPhoto);
+
+    		for (UserPhotoVote nVote  : mesVotes){ 
+				nb++;
+				laMoyenne = ( laMoyenne * (nb-1) + nVote.getStars() ) / nb;
+			  }
+    		return laMoyenne;
     }
 
 }

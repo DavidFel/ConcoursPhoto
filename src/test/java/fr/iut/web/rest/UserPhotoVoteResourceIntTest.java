@@ -266,4 +266,11 @@ public class UserPhotoVoteResourceIntTest {
     public void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(UserPhotoVote.class);
     }
+    
+    
+    // Test Unitaire d'insertion de vote
+    @Test
+    public void createUserPhotoVoteAhmed() throws Exception {
+
+    }
 }
