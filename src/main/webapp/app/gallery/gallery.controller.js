@@ -20,6 +20,7 @@
         vm.userPhotoVote = {};
         vm.UserPhotoComment={};
         vm.nbVote=0;
+        vm.moyenne=0;
 
 
         $scope.$on('authenticationSuccess', function() {
@@ -143,6 +144,7 @@
      		}
  		});
  		vm.nbVote=nb;
+ 		vm.moyenne=moyenne;
 		return moyenne;
     };
 	
@@ -224,18 +226,19 @@
 			console.log("ERROR save comment", err);
 			});
 		}
-saveVote
+
 		loadCommentsOnePhoto(PhotoID);
 		vm.MsgComment= "Saisir votre commentaire....";
     };// Fin save comment
     
-	function UpdateMoyennePhoto (idPhoto,Moyenne,nbVote) {
+	 vm.UpdateMoyennePhoto= function (idPhoto,Moyenne,nbVote) {
 		var objectToSend = new FormData();
 		objectToSend.append("idPhoto", idPhoto);
 		objectToSend.append("Moyenne", Moyenne);
 		objectToSend.append("nbVote", nbVote);
-		var req = $http.post("/api/update-photos-Ahmed",objectToSend, {
 		
+		var req = $http.post("/api/update-photos-Ahmed",objectToSend, {
+
 		transformRequest: angular.identity,
 			headers: {
 			'Content-Type': undefined,
